@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <style>
+        button {
+            width: 65px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Simple Calculator</h1>
+        Value 1: <input type="text" id="val1"> <br>
+        Value 2: <input type="text" id="val2"> <br>
+        <button id="add" onclick="Simple_cal(this.id)">+</button>
+        <button id="sub" onclick="Simple_cal(this.id)">-</button>
+        <button id="mul" onclick="Simple_cal(this.id)">*</button>
+        <button id="div" onclick="Simple_cal(this.id)">/</button> <br>
+        <button id="reset" onclick="Simple_cal(this.id)">Reset</button> <br>
+        Result: <input type="text" id="result"> <br>
+    </div>
+    <script>
+        function Simple_cal(clicked_id) {
+            var val1 = parseFloat(document.getElementById("val1").value);
+            var val2 = parseFloat(document.getElementById("val2").value);
+            if (isNaN(val1) || isNaN(val2)) {
+                alert("enter a valid number");
+            }
+            if (clicked_id == "add") {
+                document.getElementById("result").value = val1 + val2;
+            }
+            else if (clicked_id == "sub") {
+                document.getElementById("result").value = val1 - val2;
+            }
+            else if (clicked_id == "mul") {
+                document.getElementById("result").value = val1 * val2;
+            }
+            else if (clicked_id == "div") {
+                document.getElementById("result").value = val1 / val2;
+            }
+            else if (clicked_id == "reset") {
+                document.getElementById("result").value = "";
+                document.getElementById("val1").value = "";
+                document.getElementById("val2").value = "";
+            }
+        }
+    </script>
+</body>
+</html>

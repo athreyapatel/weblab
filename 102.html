@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <style>
+        table,
+        td,
+        th {
+            border: 1px solid black;
+            width: 33%;
+            text-align: center;
+            border-collapse: collapse;
+            background-color: lightblue;
+        }
+
+        table {
+            margin: auto;
+        }
+    </style>
+    <?php
+        $a=array();
+        $mysql=mysql_connect(“loalhost”,”root”,””)or die(“cannot connect “);
+        mysql_select_db(“web lab”)or die(“cannot select the database”);
+        $result=mysql_query(“select * from student”);
+        echo "<br>";
+        echo "<center> BEFORE SORTING </center>";
+        echo "<table border='2'>";
+        echo "<tr>";
+        echo "<th>USN</th><th>NAME</th><th>Address</th></tr>";
+        while ($row=mysql_fetch_array($result)){
+        {
+        echo "<tr>";
+        echo "<td>". $row["usn"]."</td>";
+        echo "<td>". $row["name"]."</td>";
+        echo "<td>". $row["addr"]."</td></tr>";
+        array_push($a,$row["usn"]);
+        }
+        echo "</table>";
+        $n=count($a);
+        $b=$a;
+        for ( $i = 0 ; $i< ($n - 1) ; $i++ )
+        {
+        $pos= $i;
+        for ( $j = $i + 1 ; $j < $n ; $j++ )
+        {
+        if ( $a[$pos] > $a[$j] )
+        $pos= $j;
+        }
+        if ( $pos!= $i )
+        {
+        $temp=$a[$i]; 
+        $a[$i] = $a[$pos];
+        $a[$pos] = $temp;
+        }
+        }
+        $result=mysql_query(“select * from student”);
+        $c=array();
+        $d=array();
+        while($row=mysql_fetch_array($result))
+        {
+        for($i=0;$i<$n;$i++)
+        {
+        if($row["usn"]== $a[$i])
+        {
+        $c[$i]=$row["name"];
+        $d[$i]=$row["addr"];
+        }
+        }
+        }
+        echo "<br>";
+        echo "<center> AFTER SORTING <center>";
+        echo "<table border='2'>";
+        echo "<tr>";
+        echo "<th>USN</th><th>NAME</th><th>Address</th></tr>";
+        for($i=0;$i<$n;$i++)
+        {
+        echo "<tr>";
+        echo "<td>". $a[$i]."</td>";
+        echo "<td>". $c[$i]."</td>";
+        echo "<td>". $d[$i]."</td></tr>";
+        }
+        echo "</table>";
+    ?>
+</body>
+
+</html>
